@@ -1,0 +1,272 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Tadawy single-medicine</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{%static 'fonts/icomoon/style.css'%}">
+
+  <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{%static 'fonts/flaticon/font/flaticon.css'%}">
+  <link rel="stylesheet" href="{%static 'css/magnific-popup.css'%}">
+  <link rel="stylesheet" href="{%static 'css/jquery-ui.css'%}">
+  <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css'%}">
+  <link rel="stylesheet" href="{%static 'css/owl.theme.default.min.css'%}">
+
+
+  <link rel="stylesheet" href="{%static 'css/aos.css'%}">
+
+  <link rel="stylesheet" href="{%static 'css/style.css'%}">
+
+</head>
+
+<body>
+
+  <div class="site-wrap">
+
+
+    <div class="site-navbar py-2">
+
+      <div class="search-wrap">
+        <div class="container">
+          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+          <form action="#" method="post">
+            <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+          </form>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="{% url 'index'%}" class="js-logo-clone"><strong class="text-primary">Tada</strong>wy</a>
+            </div>
+          </div>
+          <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                
+                <li class="active"><a href="{% url 'index'%}">Home</a></li>
+                <li class="has-children">
+                  <a href="{% url 'index'%}">Services</a>
+                  <ul class="dropdown">
+                    <li><a href="{%url 'medicine'%}">Medicines</a></li>
+                    <li><a href="{%url 'disease'%}">Diseases</a></li> 
+                  </ul>
+                </li>
+                <li><a href="{%url 'about'%}">About</a></li>
+                <li><a href="{%url 'contact'%}">Contact</a></li>
+              </ul>
+              
+            </nav>
+          </div>
+          <div class="icons">
+             {%if user.is_authenticated%}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                            <a class="dropdown-item" href="{%url 'profile'%}">My account</a>
+                            <a class="dropdown-item" href="{%url 'changepassword'%}">Change password</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'signout' %}">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+                {%else%}
+                <form class="form-inline ml-auto">
+                    <a href="{%url 'signin'%}" class="btn btn-outline-secondary">login</a>
+                    <a href="{%url 'signup'%}" class="btn btn-primary ml-2">Signup</a>
+                </form>
+                {%endif%}
+          </div> 
+          
+
+          
+        </div>
+      </div>
+      
+    </div>
+  
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="{%url 'index'%}">Home</a> <span class="mx-2 mb-0">/</span> <a
+              href="{%url 'medicine'%}">Medicines</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">{{med.name}}</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5 mr-auto">
+            <div class="border text-center">
+              <img src="{{med.image.url}}" alt="Image" class="img-fluid p-5">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h2 class="text-black">{{med.name}}</h2>
+            <p>{{med.attribute}}</p>
+            
+
+            <p> <strong class="text-primary h4">{{med.price}}</strong></p>
+
+            
+            
+            <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 220px;">
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                </div>
+                <input type="text" class="form-control text-center" value="1" placeholder=""
+                  aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                </div>
+              </div>
+    
+            </div>
+            <p><a href="{%url 'checkout'%}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Buy now</a></p>
+
+            <div class="mt-5">
+              <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                    aria-controls="pills-home" aria-selected="true">Ordering Information</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                    aria-controls="pills-profile" aria-selected="false">Specifications</a>
+                </li>
+            
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <table class="table custom-table">
+                    <thead>
+                      <th>Material</th>
+                      <th>Description</th>
+                      <th>Packaging</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">OTC022401</th>
+                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                        <td>1 BT</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">OTC022401</th>
+                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                        <td>144/CS</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">OTC022401</th>
+                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle</td>
+                        <td>1 EA</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            
+                  <table class="table custom-table">
+            
+                    <tbody>
+                      <tr>
+                        <td>HPIS CODE</td>
+                        <td class="bg-light">999_200_40_0</td>
+                      </tr>
+                      <tr>
+                        <td>HEALTHCARE PROVIDERS ONLY</td>
+                        <td class="bg-light">No</td>
+                      </tr>
+                      <tr>
+                        <td>LATEX FREE</td>
+                        <td class="bg-light">Yes, No</td>
+                      </tr>
+                      <tr>
+                        <td>MEDICATION ROUTE</td>
+                        <td class="bg-light">Topical</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            
+                </div>
+            
+              </div>
+            </div>
+
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <footer class="site-footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+
+            <div class="block-7">
+              <h3 class="footer-heading mb-4">About <strong class="text-primary">Tadawy</strong></h3>
+              <p>The pharmacy profession is a strong and vital part of the health care system in any country, and a strong pharmaceutical industry is often the key to enjoying better health care. Out of this conviction that we believe in, we established, with God’s help and grace, our first pharmacy in 2021. We started with one branch, but our ambitious vision helped us excel and pushed us to the position we enjoy today. The role of pharmacy goes beyond just providing medicine, we strive to provide an unprecedented range of comprehensive services to help our clients lead healthier and more beautiful lives.
+
+              </p>
+            </div>
+
+          </div>
+          <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+            <h3 class="footer-heading mb-4">Navigation</h3>
+            <ul class="list-unstyled">
+              <li><a href="{%url 'index'%}">Services</a></li>
+              <li><a href="#">Medicines</a></li>
+              <li><a href="#">Diseases</a></li>
+              <li><a href="{%url 'signup'%}">New User</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <ul class="list-unstyled">
+                <li class="address">kafrel-sheikh/Egypt</li>
+                <li class="phone"><a href="tel://201001515924">+20 1001 515 924 </a></li>
+                <li class="email"><a href="{%url 'contact'%}">tadawypharmacy45@gmail.com</a></li>
+              </ul>
+            </div>
+
+
+          </div>
+        </div>
+      
+
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{%static 'js/jquery-3.3.1.min.js'%}"></script>
+  <script src="{%static 'js/jquery-ui.js'%}"></script>
+  <script src="{%static 'js/popper.min.js'%}"></script>
+  <script src="{%static 'js/bootstrap.min.js'%}"></script>
+  <script src="{%static 'js/owl.carousel.min.js'%}"></script>
+  <script src="{%static 'js/jquery.magnific-popup.min.js'%}"></script>
+  <script src="{%static 'js/aos.js'%}"></script>
+
+  <script src="{%static 'js/main.js'%}"></script>
+
+</body>
+
+</html>
